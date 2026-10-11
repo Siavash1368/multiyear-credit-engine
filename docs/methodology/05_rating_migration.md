@@ -12,7 +12,7 @@ $$c_{r,k} = N^{-1}\big(P(\text{end in state } k \text{ or worse})\big) = N^{-1}\
 
 New state = *k* such that $c_{r,k+1} < X_i \le c_{r,k}$; the lowest slice $X_i \le c_{r,D} = N^{-1}(\text{PD}_r)$ is default. Given the cycle *Z*, the conditional matrix is
 
-$$p_{rk}(Z) = N\!\left(\frac{c_{r,k} - \sqrt\rho Z}{\sqrt{1-\rho}}\right) - N\!\left(\frac{c_{r,k+1} - \sqrt\rho Z}{\sqrt{1-\rho}}\right)$$
+$$p_{rk}(Z) = N\left(\frac{c_{r,k} - \sqrt\rho Z}{\sqrt{1-\rho}}\right) - N\left(\frac{c_{r,k+1} - \sqrt\rho Z}{\sqrt{1-\rho}}\right)$$
 
 Multi-year without cycle: $P^{(n)} = P^n$; the D column gives cumulative PDs. Generator $Q = \log P$ (with negative off-diagonals set to zero) gives $P(t) = e^{Qt}$ for fractional years.
 

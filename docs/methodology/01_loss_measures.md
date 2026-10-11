@@ -8,7 +8,7 @@ A credit book loses money in two ways. The **expected loss** is the average cost
 ## 2. Model
 For issuer *i* with exposure $E_i$, default indicator $D_i$ and loss given default $\text{LGD}_i$:
 
-$$L = \sum_i E_i \,\text{LGD}_i \, D_i, \qquad \text{EL} = \mathbb E[L] = \sum_i E_i\,\overline{\text{LGD}}_i\,\text{PD}_i$$
+$$L = \sum_i E_i  \text{LGD}_i   D_i, \qquad \text{EL} = \mathbb E[L] = \sum_i E_i \overline{\text{LGD}}_i \text{PD}_i$$
 
 $$\text{VaR}_q = \inf\{\ell : P(L \le \ell) \ge q\}, \qquad \text{ES}_q = \mathbb E[L \mid L \ge \text{VaR}_q]$$
 

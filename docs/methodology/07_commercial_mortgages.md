@@ -8,9 +8,9 @@ A commercial mortgage is Merton on a building. The borrower keeps paying while t
 ## 2. Model
 For loan *j* with property type sharing the CRE factor $Z^{\text{cre}}_t$:
 
-$$\ln V_{t} = \ln V_{t-1} + \mu_V - \tfrac12\sigma_V^2 + \sigma_V\big(\sqrt{\rho_V}\,Z^{\text{cre}}_t + \sqrt{1-\rho_V}\,\varepsilon_{jt}\big)$$
+$$\ln V_{t} = \ln V_{t-1} + \mu_V - \tfrac12\sigma_V^2 + \sigma_V\big(\sqrt{\rho_V} Z^{\text{cre}}_t + \sqrt{1-\rho_V} \varepsilon_{jt}\big)$$
 
-$$\ln \text{NOI}_{t} = \ln \text{NOI}_{t-1} + g - \tfrac12\sigma_N^2 + \sigma_N\big(\sqrt{\rho_N}\,Z^{\text{cre}}_t + \sqrt{1-\rho_N}\,\xi_{jt}\big)$$
+$$\ln \text{NOI}_{t} = \ln \text{NOI}_{t-1} + g - \tfrac12\sigma_N^2 + \sigma_N\big(\sqrt{\rho_N} Z^{\text{cre}}_t + \sqrt{1-\rho_N} \xi_{jt}\big)$$
 
 $$\text{DSCR}_t = \frac{\text{NOI}_t}{\text{debt service}}, \qquad \text{LTV}_t = \frac{B_t}{V_t}$$
 
@@ -18,10 +18,10 @@ $$\text{DSCR}_t = \frac{\text{NOI}_t}{\text{debt service}}, \qquad \text{LTV}_t 
 - **Balloon default:** at maturity, $\text{LTV}_T > \text{LTV}^{\max}_{\text{refi}}$ or $\text{NOI}_T / \text{DS}_{\text{refi}} < \text{DSCR}^{\min}_{\text{refi}}$.
 - **Loss:** $\max(B_t - (1-\kappa)V_t,\ 0)$.
 - **Prepayment:** constant annual probability for surviving loans.
-- **Link to the economy (A-14):** $Z^{\text{cre}} = \sqrt{\beta}\,G + \sqrt{1-\beta}\,H$.
+- **Link to the economy (A-14):** $Z^{\text{cre}} = \sqrt{\beta} G + \sqrt{1-\beta} H$.
 
 Closed-form check: balloon default ≈ Merton on the building,
-$P(V_T < B_T) = N\!\left(-\dfrac{\ln(V_0/B_T) + (\mu_V - \frac12\sigma_V^2)T}{\sigma_V\sqrt T}\right)$.
+$P(V_T < B_T) = N\left(-\dfrac{\ln(V_0/B_T) + (\mu_V - \frac12\sigma_V^2)T}{\sigma_V\sqrt T}\right)$.
 
 **Statutory capital:** each year the loan's DSCR and LTV place it in NAIC CM1–CM5 (hotels and higher-risk cells move down); factors 0.90%, 1.75%, 3.00%, 5.00%, 7.50% (CM6/CM7 for delinquent and foreclosed loans).
 

@@ -12,7 +12,7 @@ $$\text{TL}(L) = \frac{(L-a)^+ - (L-d)^+}{d-a}$$
 
 Large homogeneous pool closed form (validation):
 
-$$\mathbb E[\text{TL}] = \frac{1}{d-a}\int \Big[(\text{LGD}\cdot \text{PD}(z) - a)^+ - (\text{LGD}\cdot \text{PD}(z) - d)^+\Big]\,\phi(z)\,dz$$
+$$\mathbb E[\text{TL}] = \frac{1}{d-a}\int \Big[(\text{LGD}\cdot \text{PD}(z) - a)^+ - (\text{LGD}\cdot \text{PD}(z) - d)^+\Big] \phi(z) dz$$
 
 **Correlation:** raising ρ leaves pool EL unchanged but moves expected loss from the equity tranche to the senior tranches.
 

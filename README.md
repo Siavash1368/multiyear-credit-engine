@@ -34,9 +34,9 @@ Public data ─► Single asset ─► Asset class ─► Dependence ─► Cred
 | Layer | What it does | Key equation |
 |---|---|---|
 | Obligor | Rating → migration thresholds; Merton distance to default from equity | $DD = \frac{\ln(V/D) + (\mu - \frac12\sigma_V^2)T}{\sigma_V\sqrt T}$ |
-| Credit cycle | One persistent systematic factor; sector and asset-class factors share it | $A_{i,t} = \sqrt{\rho}\,Z_t + \sqrt{1-\rho}\,\varepsilon_{i,t}$, $Z_t = \phi Z_{t-1} + \sqrt{1-\phi^2}\,\eta_t$ |
+| Credit cycle | One persistent systematic factor; sector and asset-class factors share it | $A_{i,t} = \sqrt{\rho} Z_t + \sqrt{1-\rho} \varepsilon_{i,t}$, $Z_t = \phi Z_{t-1} + \sqrt{1-\phi^2} \eta_t$ |
 | Bonds | Year-by-year rating migration and default | $c_{k,j} = \Phi^{-1}\big(\sum_{l \ge j} m_{kl}\big)$ |
-| Commercial mortgages | Merton on the building: value and NOI paths; term (DSCR<1 and LTV>1) and balloon (refinance fails) default | $\text{LGD} = \max(B - (1-\kappa)V,\,0)/B$ |
+| Commercial mortgages | Merton on the building: value and NOI paths; term (DSCR<1 and LTV>1) and balloon (refinance fails) default | $\text{LGD} = \max(B - (1-\kappa)V, 0)/B$ |
 | Structured | Collateral pool from the same engine; contract slices the pool loss | $\ell_{[a,d]} = \frac{(L-a)^+ - (L-d)^+}{d-a}$ |
 | Capital | NAIC RBC by designation, CM category or tranche rating; ES capital contributions | $RC_i = E[L_i \mid L \ge VaR] - E[L_i]$, $\sum_i RC_i = EC$ |
 | Pricing | Break-even spread | $s^* = EL + k \cdot \text{RBC factor} \cdot \text{CoC}$ |

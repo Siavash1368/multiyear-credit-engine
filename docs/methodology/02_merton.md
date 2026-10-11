@@ -8,9 +8,9 @@ A firm defaults when the value of what it owns falls below what it owes. Equity 
 ## 2. Model
 Asset value $V_t$ follows geometric Brownian motion with volatility $\sigma_V$. With default point *D*, horizon *T* and rate *r*:
 
-$$E = V\,N(d_1) - D e^{-rT} N(d_2), \quad d_1 = \frac{\ln(V/D) + (r + \tfrac12\sigma_V^2)T}{\sigma_V\sqrt T}, \quad d_2 = d_1 - \sigma_V\sqrt T$$
+$$E = V N(d_1) - D e^{-rT} N(d_2), \quad d_1 = \frac{\ln(V/D) + (r + \tfrac12\sigma_V^2)T}{\sigma_V\sqrt T}, \quad d_2 = d_1 - \sigma_V\sqrt T$$
 
-$$\sigma_E E = N(d_1)\,\sigma_V V$$
+$$\sigma_E E = N(d_1) \sigma_V V$$
 
 Two equations, two unknowns $(V, \sigma_V)$. Then
 

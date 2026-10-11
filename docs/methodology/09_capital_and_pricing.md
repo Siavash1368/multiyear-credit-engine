@@ -6,7 +6,7 @@
 Two capital views run side by side. **Statutory RBC** is the regulator's rule: a factor per rating bucket, recomputed each year as bonds migrate, so the engine shows how required capital could drift up in a bad cycle. **Economic capital** (ES − EL) is the model's own view of tail risk. Allocating economic capital to each asset shows where the tail actually comes from; comparing it with limits and with spreads tells the business what to hold, what to cut and what a new purchase must earn.
 
 ## 2. Model
-**RBC (bonds):** $\text{RBC}_t = \text{PA}(n_t)\sum_i f_{d(i,t)}\,E_{i,t}$, with $f_d$ the pre-tax factor for NAIC designation *d* and PA the portfolio adjustment by issuer count. Mortgages use CM factors (07); tranches use their designation factor (A-15).
+**RBC (bonds):** $\text{RBC}_t = \text{PA}(n_t)\sum_i f_{d(i,t)} E_{i,t}$, with $f_d$ the pre-tax factor for NAIC designation *d* and PA the portfolio adjustment by issuer count. Mortgages use CM factors (07); tranches use their designation factor (A-15).
 
 **Euler ES allocation:**
 $$\text{EC}_i = \mathbb E[L_i \mid L \ge \text{VaR}_q] - \mathbb E[L_i], \qquad \sum_i \text{EC}_i = \text{ES}_q - \text{EL}$$

@@ -8,11 +8,11 @@ Bad credit years come in runs: 2001–02, 2008–09. A model that draws a fresh,
 ## 2. Model
 Implied factor from an observed default rate $\text{DR}_t$ (inverse of the conditional PD):
 
-$$\hat Z_t = \frac{N^{-1}(\text{PD}) - \sqrt{1-\rho}\,N^{-1}(\text{DR}_t)}{\sqrt{\rho}}$$
+$$\hat Z_t = \frac{N^{-1}(\text{PD}) - \sqrt{1-\rho} N^{-1}(\text{DR}_t)}{\sqrt{\rho}}$$
 
 AR(1) cycle, stationary with unit variance:
 
-$$Z_t = \varphi\,Z_{t-1} + \sqrt{1-\varphi^2}\,\eta_t, \qquad \eta_t \sim N(0,1)$$
+$$Z_t = \varphi Z_{t-1} + \sqrt{1-\varphi^2} \eta_t, \qquad \eta_t \sim N(0,1)$$
 
 Fit of (PD, ρ) by moments of the probit-transformed rates: with $y_t = N^{-1}(\text{DR}_t)$,
 

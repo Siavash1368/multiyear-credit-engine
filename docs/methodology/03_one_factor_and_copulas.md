@@ -6,17 +6,17 @@
 Defaults cluster because firms share an economy. Each obligor's asset return mixes one common factor *Z* (the state of the economy) with its own noise. In a bad year (low *Z*) every firm is closer to its threshold, so many default together. The **copula** decides how strongly extreme moves line up; a Student-t copula adds joint crashes that the Gaussian one does not have.
 
 ## 2. Model
-$$X_i = \sqrt{\rho}\,Z + \sqrt{1-\rho}\,\varepsilon_i, \qquad Z,\varepsilon_i \sim N(0,1)\ \text{i.i.d.}$$
+$$X_i = \sqrt{\rho} Z + \sqrt{1-\rho} \varepsilon_i, \qquad Z,\varepsilon_i \sim N(0,1)\ \text{i.i.d.}$$
 
 $$D_i = \mathbf 1\{X_i < c_i\}, \qquad c_i = N^{-1}(\text{PD}_i)$$
 
-$$\text{PD}_i(Z) = N\!\left(\frac{N^{-1}(\text{PD}_i) - \sqrt{\rho}\,Z}{\sqrt{1-\rho}}\right)$$
+$$\text{PD}_i(Z) = N\left(\frac{N^{-1}(\text{PD}_i) - \sqrt{\rho} Z}{\sqrt{1-\rho}}\right)$$
 
 Large homogeneous pool (Vasicek): the default fraction equals $\text{PD}(Z)$, so
 
-$$P(\text{DR} \le x) = N\!\left(\frac{\sqrt{1-\rho}\,N^{-1}(x) - N^{-1}(\text{PD})}{\sqrt{\rho}}\right)$$
+$$P(\text{DR} \le x) = N\left(\frac{\sqrt{1-\rho} N^{-1}(x) - N^{-1}(\text{PD})}{\sqrt{\rho}}\right)$$
 
-**Sectors (A-11):** $Z_k = \sqrt{\beta}\,G + \sqrt{1-\beta}\,H_k$; β = 1 is one factor; β < 1 lets sectors diversify.
+**Sectors (A-11):** $Z_k = \sqrt{\beta} G + \sqrt{1-\beta} H_k$; β = 1 is one factor; β < 1 lets sectors diversify.
 
 **t copula (A-10):** $X_i^{t} = X_i / \sqrt{W/\nu}$, $W \sim \chi^2_\nu$ common to all issuers; map back with $\tilde X_i = N^{-1}(t_\nu(X_i^t))$ so each one-year PD is unchanged and only the joint tail changes.
 
