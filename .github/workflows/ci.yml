@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pandas scipy pyyaml pydantic matplotlib requests pytest ruff
+          pip install -e . --no-deps
+      - name: Lint
+        run: ruff check src tests scripts
+      - name: Tests (licensed S&P tables are not in the repo, so those tests skip)
+        run: pytest -q

@@ -1,0 +1,7 @@
+# Credit-cycle scenarios (NB03, NB10). A replay takes the implied cycle Z_t of a historical
+# window, estimated from S&P single-B default rates (scripts/calibrate.py), as the global path.
+scenarios:
+  base: {type: stochastic}
+  replay_2000_2004: {type: replay, start_year: 2000}
+  replay_2008_2012: {type: replay, start_year: 2008}
+  severe_flat: {type: fixed, z_path: [-2.0, -2.0, -1.0, 0.0, 0.0]}

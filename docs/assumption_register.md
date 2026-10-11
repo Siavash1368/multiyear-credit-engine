@@ -1,0 +1,22 @@
+# Assumption register
+
+Every assumption has an ID. Code, configuration and the validation plan refer to these IDs.
+"Sensitivity tested" points to the tornado (V-06) or another check in `validation_plan.md`.
+
+| ID | Assumption | Value (v0.2) | Source / rationale | Sensitivity tested | Status |
+|---|---|---|---|---|---|
+| A-01 | One-year transition matrix | S&P global corporate average 1981–2025 (Table 21); NR removed pro rata; D absorbing | Longest public issuer-weighted history; pro-rata NR is the standard treatment | Compared with S&P cumulative rates (V-03); PD ×0.8 / ×1.2 (V-06: ES −10% / +9%) | Set |
+| A-02 | Asset correlation ρ | Basel IRB corporate formula on each issuer's initial 1-year PD: 0.24 (AAA) to 0.12 (CCC/C); fixed for the life of the bond | Regulatory benchmark. Fitted from S&P default-rate volatility: 0.11 (BB), 0.13 (B), 0.12 (CCC/C) | ρ ×0.75 / ×1.25 (V-06: ES −20% / +23%); backtest bands (V-05) | Set |
+| A-03 | Credit-cycle persistence φ | 0.50, AR(1) on the annual factor; stationary start | Fit on the implied factor from S&P 'B' default rates gives 0.54 | φ = 0 / 0.7 (V-06: ES −36% / +32%) | Set |
+| A-04 | LGD distribution | Beta, mean 60%, std 25% (bonds); mean 40%, std 25% (structured collateral pool) | Senior unsecured bonds / senior loans, illustrative | Mean 50% / 70% (V-06: ES −15% / +21%) | Set |
+| A-05 | Horizon and time step; static portfolio | 5 years, annual; no reinvestment; matured and defaulted assets leave the book | Statutory planning horizon; simplest dynamic book | — | Set |
+| A-06 | RBC factors, capital multiple, cost of capital | Academy C1WG pre-tax base factors (Mar 2021) with portfolio adjustment; S&P letter → middle notch (AAA→1.A, AA→1.C, A→1.F, BBB→2.B, BB→3.B, B→4.B, CCC/C→5.B); capital multiple 2; cost of capital 10% | Public documents; middle notch because the matrix is by letter category | — | Set |
+| A-07 | Commercial property value and NOI | Value: lognormal, drift 2%, vol 15%, loading on the CRE factor 0.35. NOI: growth 2%, vol 8%, loading 0.30. Selling and workout cost 25%. Prepayment 3% a year. Refinance at maturity needs LTV ≤ 100% and DSCR ≥ 1.0 at a 6% rate. Term default needs DSCR < 1 **and** LTV > 100% | Typical published ranges for US commercial real estate; illustrative, not fitted (L-13) | Balloon PD vs closed form (V-12); CM grid unit tests | Set (illustrative) |
+| A-08 | Structured pool and waterfall | 200-name homogeneous pool (BB 30%, B 65%, CCC 5%), 7-year maturity, ρ = 0.15; tranche loss = (L − a)⁺ − (L − d)⁺ over thickness; no cash-flow waterfall, no O/C or I/C tests | Simple CLO-like pool; attachment points set from pool-loss quantiles | Correlation sensitivity table; tranche conservation (V-10) | Set (simplified, L-09) |
+| A-09 | Illustrative portfolios only; no proprietary data | Whole book USD 1bn: bonds 67%, commercial mortgages 17%, structured 16% (`configs/portfolios/insurer_book.yaml`) | Shares chosen to look like a life insurer's general account; no company data used | — | Set |
+| A-10 | Copula family | Gaussian (base); Student-t with ν = 6 as challenger, mapped back to Gaussian ranks so one-year PDs are unchanged | Baseline plus tail-dependence challenger | t copula (V-06: ES +66%, EL unchanged) | Set (challenger built) |
+| A-11 | Sector factor structure | One global factor (base); challenger Z_k = √β G + √(1−β) H_k with β = 0.5 over 8 sectors. Asset-class factors: CRE β = 0.5, structured pool β = 1.0 | Baseline plus sector challenger | Sector β = 0.5 (V-06: ES −31%) | Set (challenger built) |
+| A-12 | Merton inputs | Default point = current liabilities + ½ non-current liabilities; 1-year horizon; risk-free rate = 1-year Treasury (FRED DGS1); equity vol = 252-day historical | KMV convention; public SEC XBRL facts | Rank correlation with ratings (V-08) | Set |
+| A-13 | LGD linked to the cycle | Mean LGD = N(a − bZ), a = N⁻¹(mean)·√(1+b²); base b = 0, challenger b = 1 | Recoveries fall in bad years; the form keeps the long-run mean | b = 1 (V-06: EL +35%, ES +67%) | Set (challenger built) |
+| A-14 | Commercial mortgage link to the economy | Z_cre = √0.5 G + √0.5 H (β = 0.5) | Property cycles are only partly in step with the corporate cycle | — (to add to V-06) | Set |
+| A-15 | Structured tranches held and their designation | Held: AAA 100m, AA 40m, A 20m. NAIC designation fixed at issue (AAA 1.A, AA 1.C, A 1.F) | Illustrative CLO holding; static designation (L-12) | Limit check; ES contribution | Set |

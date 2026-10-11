@@ -1,0 +1,10 @@
+# Whole stylised general-account credit book, USD 1bn (A-09). Mix close to a large life insurer's
+# public statutory disclosure: corporates ~2/3, commercial mortgages ~1/6, structured ~1/6.
+book:
+  corporate_bonds: {config: configs/portfolios/corporate_bonds.yaml, total_exposure_usd: 670000000.0}
+  commercial_mortgages: {config: configs/portfolios/commercial_mortgages.yaml}
+  structured: {config: configs/portfolios/structured.yaml}
+economy:
+  beta_cre: 0.50    # share of the CRE cycle that is the global credit cycle (A-11)
+  beta_pool: 1.00   # leveraged-loan collateral follows the global credit cycle
+limits_share_of_ec: {corporate bonds: 0.70, commercial mortgages: 0.15, structured: 0.15}   # illustrative risk appetite

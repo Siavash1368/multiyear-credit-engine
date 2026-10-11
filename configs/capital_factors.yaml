@@ -1,0 +1,13 @@
+# Statutory capital settings (NB09). Factors themselves live in data/external/ with citations.
+rbc:
+  bond_factor_file: data/external/naic_bond_factors.csv               # A-06: Academy C1WG, March 2021
+  portfolio_adjustment_file: data/external/naic_portfolio_adjustment.csv
+  rating_map_file: data/external/rating_scale_map.csv                 # A-06: S&P letter -> middle notch
+  cm_factor_file: data/external/naic_cm_categories.csv                # v0.5
+  clo_factor_file: data/external/naic_clo_factors.csv                 # later
+  basis: pre_tax
+  capital_multiple: 2.0        # A-06: capital held = 2 x RBC (used for pricing, v0.2)
+  cost_of_capital: 0.10        # A-06 (used for pricing, v0.2)
+pricing:
+  expense_bps: null
+  liquidity_premium_bps: null

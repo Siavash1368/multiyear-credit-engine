@@ -1,0 +1,31 @@
+# Stylised commercial mortgage loan book (illustrative only, A-09). Not any insurer's actual holdings.
+# Property-type mix and average DSCR/LTV are set close to a large life insurer's public year-end
+# statutory disclosure (apartment-heavy, healthy averages, a weaker office pocket).
+portfolio:
+  name: commercial_mortgages
+  total_balance_usd: 170000000.0
+  n_loans: 60
+  type_mix: {apartment: 0.42, industrial: 0.22, retail: 0.22, office: 0.12, hotel: 0.02}
+  ltv_mean: 0.60
+  ltv_sd: 0.12
+  dscr_mean: 2.0
+  dscr_sd: 0.45
+  office_ltv_add: 0.12      # office drawn weaker: higher LTV ...
+  office_dscr_cut: 0.45     # ... and lower DSCR
+  rate: 0.05
+  amort_years: 25
+  max_maturity: 10          # balloons spread over 1-10 years
+  seed: 11
+behaviour:                  # A-07
+  value_drift: 0.02
+  value_vol: 0.15
+  value_rho: 0.35
+  noi_growth: 0.02
+  noi_vol: 0.08
+  noi_rho: 0.30
+  selling_cost: 0.25
+  prepay_rate: 0.03
+  refi_ltv_max: 1.00
+  refi_dscr_min: 1.00
+  refi_rate: 0.06
+  term_trigger_ltv: 1.00

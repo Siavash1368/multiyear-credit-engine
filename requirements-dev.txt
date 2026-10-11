@@ -1,0 +1,11 @@
+# Testing
+pytest>=8.0
+pytest-cov>=5.0
+
+# Code quality
+ruff>=0.4
+mypy>=1.9
+pre-commit>=3.7
+
+# Notebook hygiene (strip outputs before commit)
+nbstripout>=0.7

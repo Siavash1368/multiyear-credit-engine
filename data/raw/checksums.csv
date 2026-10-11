@@ -1,0 +1,75 @@
+file,source_url,downloaded_utc,bytes,sha256
+data/raw/fred/credit_cycle/CORBLACBS.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=CORBLACBS,2026-10-10,2683,e12383e47524ffc1e595e14f5f06c06c299f9360be1b5fe66cc72445184a24f0
+data/raw/fred/credit_cycle/DRBLACBS.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=DRBLACBS,2026-10-10,2554,8f32ed3d2240aef7f1a9e6aece0dce9141bcf821ce11a4e76ca63e14822fe739
+data/raw/fred/credit_cycle/CORCACBS.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=CORCACBS,2026-10-10,2682,7ca2339f88e10cc6689afe96ccfeeb1dd7662f6a9f4477457153d8bae6a79069
+data/raw/fred/macro/USREC.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=USREC,2026-10-10,26829,a42a3581fe9c260dd3627febc84a7d563e5ed162cc7085a7518ebde99dc3c3b4
+data/raw/fred/macro/UNRATE.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=UNRATE,2026-10-10,14211,621ff6fadf50910cb7a21ee20ba610c247cb043b29b4e05c4c1a72fadca2a06c
+data/raw/fred/macro/GDPC1.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=GDPC1,2026-10-10,6527,5e235cef633b1033da0967311efa89a47845f42e9d6ad8d60b4babed32ae6f08
+data/raw/fred/macro/NFCI.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=NFCI,2026-10-10,51532,e7f217a41c0530b43033cd4d7ebf9c76bf455e9ed92e71110d6bfad80b5b0ed7
+data/raw/fred/rates/DGS1.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS1,2026-10-10,268621,47fd54b7a85d1fc7c6976b8b30aa5822970acd0b37646be0fa2baa621f350cef
+data/raw/fred/rates/DGS5.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS5,2026-10-10,268825,0328d1175e4b9b4f387b8b07d8be7ce2717a6b55c55954ba074d4e772b211f75
+data/raw/fred/rates/DGS10.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10,2026-10-10,268999,624f2a18b0c5642c72dbf8c58cf54b9dcee50d7d8cb3b7809b9416dabd09dd55
+data/raw/fred/rates/T10Y2Y.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=T10Y2Y,2026-10-10,210089,b589142e78fa370a661028ff9e39bd6b760831c1a29f933d177076d9c59e56d2
+data/raw/fred/spreads/AAA.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=AAA,2026-10-10,20790,15248259177710745867656c413bb2bae549c6485ca3acb7eed348a812f497ac
+data/raw/fred/spreads/BAA.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAA,2026-10-10,20869,3396297d0b2f8f4e8bb467207286c33c04d97bfe37b25bc5a97da6bafc615e93
+data/raw/fred/spreads/AAA10Y.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=AAA10Y,2026-10-10,180849,242a10ad9568ca9cfdfe7866598fe7e0c81830780543c86c2b554024b72b8508
+data/raw/fred/spreads/BAA10Y.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAA10Y,2026-10-10,168428,d68146535f8f2951a29f2854a1bd5eeac1bc67c4d92f4a471eaa9ba8dff68aed
+data/raw/fred/spreads/BAMLC0A0CM.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLC0A0CM,2026-10-10,12696,98baf2cd94235872a5ca63468490326ecf41f599bce58a264e99b1106931a38a
+data/raw/fred/spreads/BAMLC0A1CAAA.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLC0A1CAAA,2026-10-10,12702,33493b78612cc3860a6bce3c7e220b6f079aa31aab1c1ad01b2b62ef3d0dacf1
+data/raw/fred/spreads/BAMLC0A2CAA.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLC0A2CAA,2026-10-10,12701,e7303d5c57d65f8a2dc7c4ea1511da8e3a053bc8dbb843a747b794e4284c2f1e
+data/raw/fred/spreads/BAMLC0A3CA.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLC0A3CA,2026-10-10,12700,ad7df0f4602460bdd251a823d0f3f398b0c674c327258fcda851de1a4a3bbe73
+data/raw/fred/spreads/BAMLC0A4CBBB.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLC0A4CBBB,2026-10-10,12702,fa81954205d7a6969b640903cce9a3095eeb6dda91d058048730d9594a901ccd
+data/raw/fred/spreads/BAMLH0A0HYM2.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLH0A0HYM2,2026-10-10,12702,940930a0477cf69dcc40a3526a3a9c9e93ec735df688fd6c7c2871ccfe6c924d
+data/raw/fred/spreads/BAMLH0A1HYBB.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLH0A1HYBB,2026-10-10,12702,4c3dcfef29355297a41cd58668e44ab918966000646170bbace1755e1d943079
+data/raw/fred/spreads/BAMLH0A2HYB.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLH0A2HYB,2026-10-10,12701,05ac1ccd1ec0ad507fefdbe130e2255d4b4f5cdc3550467890a336579b5d76a6
+data/raw/fred/spreads/BAMLH0A3HYC.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLH0A3HYC,2026-10-10,12791,8f79468337f73f344efc7a0ddd5052afe927c342138e94c00fd39b69e9233d6f
+data/raw/fred/commercial_real_estate/DRCRELEXFACBS.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=DRCRELEXFACBS,2026-10-10,2310,5f8613274610ccb2676de7a11ac686f50c0b7bc6878a226c56060423305e18c0
+data/raw/fred/commercial_real_estate/CORCREXFACBS.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=CORCREXFACBS,2026-10-10,2311,67a39b9f505d5eff0779ee48b3725db93021c83c3bd543cdbc6bb4d6b2dedfe3
+data/raw/fred/commercial_real_estate/COMREPUSQ159N.csv,https://fred.stlouisfed.org/graph/fredgraph.csv?id=COMREPUSQ159N,2026-10-10,2123,5579e481d3610fa38754472b60a7ed870ba36c7c6c3de47beef6b41568731f0f
+data/raw/sec_edgar/company_tickers.json,https://www.sec.gov/files/company_tickers.json,2026-10-10,798703,bb1521ff938ce1217343362f335aae521d9978b105229eabef69124ac24bbb1c
+data/raw/sec_edgar/companyfacts/AAL.json,https://data.sec.gov/api/xbrl/companyfacts/CIK0000006201.json,2026-10-10,3409249,e86aa2120584973c57138a4d9d645d5c9ab641783c1180ce3ce3f74d98288cde
+data/raw/sec_edgar/companyfacts/AAPL.json,https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json,2026-10-10,3789099,73a86c6aedc31f77cac2ea4df5f80f0b3bd7e6eb58bb4e01444fbedf3afb9c43
+data/raw/sec_edgar/companyfacts/BA.json,https://data.sec.gov/api/xbrl/companyfacts/CIK0000012927.json,2026-10-10,5180611,0c63f1ae7cc10b3c27e0c94f2add0c461e6293036dd4e52e52ae6dbb6f206e15
+data/raw/sec_edgar/companyfacts/CCL.json,https://data.sec.gov/api/xbrl/companyfacts/CIK0000815097.json,2026-10-10,2771212,c207466469f69d3af50817c174fb9dc501bb65e4d2f64fdd51f2b3a3b9f3e5c9
+data/raw/sec_edgar/companyfacts/DAL.json,https://data.sec.gov/api/xbrl/companyfacts/CIK0000027904.json,2026-10-10,3413155,1fc76c7cfaaf40573ff026475ec4e2565027fda09b7a405c2c126977cbd4efd3
+data/raw/sec_edgar/companyfacts/F.json,https://data.sec.gov/api/xbrl/companyfacts/CIK0000037996.json,2026-10-10,3672318,db9621054cffb365bcb65cde1f53e4161fb26ac56ebf8a95b9066b3d2375203e
+data/raw/sec_edgar/companyfacts/HCA.json,https://data.sec.gov/api/xbrl/companyfacts/CIK0000860730.json,2026-10-10,3550371,1dd9e5ce23f330228b212385f04a44a5a303622fc026c82d9edda66092dcb49a
+data/raw/sec_edgar/companyfacts/JNJ.json,https://data.sec.gov/api/xbrl/companyfacts/CIK0000200406.json,2026-10-10,4168526,7141c0c988fa1d30f779687b4c78ab561e19aa5990a58ad86a66467d0a783980
+data/raw/sec_edgar/companyfacts/KHC.json,https://data.sec.gov/api/xbrl/companyfacts/CIK0001637459.json,2026-10-10,3417827,8fad66c16e535f7749f19126a986a9f43a087ca2472d063fa7742106196d88ac
+data/raw/sec_edgar/companyfacts/M.json,https://data.sec.gov/api/xbrl/companyfacts/CIK0000794367.json,2026-10-10,3797273,88668494d8180afc17328426e3d4aa770b19658806d846fa792d5629963696c6
+data/raw/sec_edgar/companyfacts/MSFT.json,https://data.sec.gov/api/xbrl/companyfacts/CIK0000789019.json,2026-10-10,4881196,f8aae2965b20ad0df44bdf7ccbedf797d275b6b8dc030154a7a311361bb7246f
+data/raw/sec_edgar/companyfacts/NFLX.json,https://data.sec.gov/api/xbrl/companyfacts/CIK0001065280.json,2026-10-10,3592813,00f3449073d90dfa3aec4e384de24b70d92d897f90c67d6bca61f23e33d38634
+data/raw/sec_edgar/companyfacts/OXY.json,https://data.sec.gov/api/xbrl/companyfacts/CIK0000797468.json,2026-10-10,3830831,4b911cbb64fe1b78f022a147470bd4376ebf25ec71897240d6ed85654d8bd410
+data/raw/sec_edgar/companyfacts/T.json,https://data.sec.gov/api/xbrl/companyfacts/CIK0000732717.json,2026-10-10,4734140,483db761a498797a4ba14df701a0404a8cc8d21b7409984eb1e722cb089f3dbb
+data/raw/sec_edgar/companyfacts/XOM.json,https://data.sec.gov/api/xbrl/companyfacts/CIK0002115436.json,2026-10-10,78880,98bde704a8084ffb3578951641249b72c0172b88ed37d2e59f6f222027755d2d
+data/raw/sec_edgar/companyfacts/XOM_CIK0000034088.json,https://data.sec.gov/api/xbrl/companyfacts/CIK0000034088.json,2026-10-10,3122723,9b95535419e5662e3deed01de803e83deead477a4c81316e1c45186368fdd8b8
+data/raw/market/events/AAL.csv,https://query1.finance.yahoo.com/v8/finance/chart/AAL?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,568,aa681cedb207c3b0f3d7b703d8aa6d74ab9d1a6da684c60dcf9cc1895ea96593
+data/raw/market/events/AAPL.csv,https://query1.finance.yahoo.com/v8/finance/chart/AAPL?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,1576,106945bb87b0028a8a75b901684357b1d19ac7f146a943535b7487358c976023
+data/raw/market/events/BA.csv,https://query1.finance.yahoo.com/v8/finance/chart/BA?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,1542,11c0c52d114ae400db5bdf3dfe7a4fa137d1394b83acc5514bf71091a28c6626
+data/raw/market/events/CCL.csv,https://query1.finance.yahoo.com/v8/finance/chart/CCL?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,1518,7f075c3fde7ef4cfcb0eda47a782124fb5061bac4eadd29825b2efd5f24d65e2
+data/raw/market/events/DAL.csv,https://query1.finance.yahoo.com/v8/finance/chart/DAL?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,1032,fedca9a162542cb478882376c15ac94ed1e2b430cd6426d1c2aae487114d4be8
+data/raw/market/events/F.csv,https://query1.finance.yahoo.com/v8/finance/chart/F?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,1503,477a3dfee7ae2da73fd11c88344118ddf5a4c3dac19c7f4bd666e45ca091e22b
+data/raw/market/events/HCA.csv,https://query1.finance.yahoo.com/v8/finance/chart/HCA?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,928,64e2faa84df174fc5fb737ae3e85ad53fe7b06600f3bdc0c0059a4c2447e832c
+data/raw/market/events/JNJ.csv,https://query1.finance.yahoo.com/v8/finance/chart/JNJ?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,2184,e62cd40ae60275683ca1cd08fe3749205a8ccec3e092933a71cd553e89fe20d9
+data/raw/market/events/KHC.csv,https://query1.finance.yahoo.com/v8/finance/chart/KHC?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,1141,e44caaa88ec344c15f12123cd06cb1495801cf0ea60eb2a872f51e211d85d5f7
+data/raw/market/events/M.csv,https://query1.finance.yahoo.com/v8/finance/chart/M?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,2132,cb21e83b4610f57f24ed113e7abe42c9b0c9a9d42a011eb5994c41c80914ff1e
+data/raw/market/events/MSFT.csv,https://query1.finance.yahoo.com/v8/finance/chart/MSFT?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,2183,84658d20cc30603e34318fb0be6039c618eb35ace1009a9c8fd3b73485615a62
+data/raw/market/events/NFLX.csv,https://query1.finance.yahoo.com/v8/finance/chart/NFLX?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,59,8074227e9acf872394d824befc1422beddd4bc221d96c9c1eb6058e7b0072dfd
+data/raw/market/events/OXY.csv,https://query1.finance.yahoo.com/v8/finance/chart/OXY?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,2429,5175c64024c12e6acbcf285462788d96007864ec591e03207b6b800a95be5bb0
+data/raw/market/events/T.csv,https://query1.finance.yahoo.com/v8/finance/chart/T?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,2266,61160669455228f70d4d969b92797b5ef049826213f8c0c1fba5006aa1e3173f
+data/raw/market/events/XOM.csv,https://query1.finance.yahoo.com/v8/finance/chart/XOM?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,2187,d08c454b6545d0f3110ba03d46ba4daf0a22eeb076e20ba982c6dbfaff460627
+data/raw/market/prices/AAL.csv,https://query1.finance.yahoo.com/v8/finance/chart/AAL?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,571657,8bd16038332036c69cece68fe6a6c545e47195897d168d8f02eeb980abdc3bb4
+data/raw/market/prices/AAPL.csv,https://query1.finance.yahoo.com/v8/finance/chart/AAPL?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,606865,67ba656a4f7765f4dc8464f5d98532b621b4d7b9236a2aea2d5dccbc7408cbae
+data/raw/market/prices/BA.csv,https://query1.finance.yahoo.com/v8/finance/chart/BA?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,578351,b1738f05a2b7a5e604243ac375b652cfa8a57df330ca7154ddc62ac82c76d43d
+data/raw/market/prices/CCL.csv,https://query1.finance.yahoo.com/v8/finance/chart/CCL?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,594329,a4eed03cfb07d4d5f5aea6b802eaf79ffa5b4b4bf64b8bb84b17707921ef7530
+data/raw/market/prices/DAL.csv,https://query1.finance.yahoo.com/v8/finance/chart/DAL?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,525152,b5ff7204b38aacaa0009fc0688f308a734607cbdf85188a65baafa86560d297a
+data/raw/market/prices/F.csv,https://query1.finance.yahoo.com/v8/finance/chart/F?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,598039,645441a5b16dca2263d1f335928b1e9c3c47eb345fcab2e58b4c1bab14b774dc
+data/raw/market/prices/HCA.csv,https://query1.finance.yahoo.com/v8/finance/chart/HCA?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,416717,a0aa01370b76e19e0cbedd712669602977b08d17c19655815d974a7e40732230
+data/raw/market/prices/JNJ.csv,https://query1.finance.yahoo.com/v8/finance/chart/JNJ?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,586298,8beb07e3f5763a91e426f84d46ee2ff6b5e7f0da687e40fcfdea9e3ab11ad285
+data/raw/market/prices/KHC.csv,https://query1.finance.yahoo.com/v8/finance/chart/KHC?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,305984,304db4e0224b4c494913cdfb6a239a2b9ffaaeb2c1b96985adddf7eb1fa56e59
+data/raw/market/prices/M.csv,https://query1.finance.yahoo.com/v8/finance/chart/M?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,595226,e2104f2428a1e36e945be02eaf01441419f857b58e752df4aa70d36ed7ab330e
+data/raw/market/prices/MSFT.csv,https://query1.finance.yahoo.com/v8/finance/chart/MSFT?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,596083,696d840de68d85e89d00a6f4e1f0a2cd33b507ad30108bc4351f7ea00c0ec332
+data/raw/market/prices/NFLX.csv,https://query1.finance.yahoo.com/v8/finance/chart/NFLX?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,615193,8a1e513a419fc7cb27fccfe5f8657ecc9f0e04b4c93e177c376dd11ca2d6f0c5
+data/raw/market/prices/OXY.csv,https://query1.finance.yahoo.com/v8/finance/chart/OXY?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,593214,b003fc0416581379c578a44d94b16807140140a7c0d24a87029313752f280730
+data/raw/market/prices/T.csv,https://query1.finance.yahoo.com/v8/finance/chart/T?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,614955,9991aec0bde0d5660b1f4495ae98db586429f69d0d437221fa3ba4f8396da02f
+data/raw/market/prices/XOM.csv,https://query1.finance.yahoo.com/v8/finance/chart/XOM?interval=1d (2005-01-01 to 2026-10-09),2026-10-10,586855,74b3ad161b2e1e58820767db5a1d0d4754c4f7d5c6dc342b2cbd482e534d2a1d

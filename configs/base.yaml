@@ -1,0 +1,28 @@
+# Base model configuration (v0.1). Each value links to an assumption ID in docs/assumption_register.md.
+
+project:
+  name: multiyear-credit-engine
+  version: 0.2.0
+
+simulation:
+  horizon_years: 5             # A-05: five years, annual steps, static portfolio
+  n_paths: 20000
+  seed: 2026
+
+cycle:                         # NB03
+  correlation_source: basel_formula   # A-02: rho by rating from the Basel IRB corporate formula
+  asset_correlation: null      # used only when correlation_source: fixed
+  persistence: 0.50            # A-03: phi, declared; S&P 'B' series fit gives about 0.54
+  start_state: null            # null = stationary start; e.g. -2.0 for a recession start
+
+migration:                     # NB04
+  matrix_file: data/external/transition_matrix_1y.csv   # A-01: S&P 2025 study, Table 21
+  nr_treatment: proportional
+
+recovery:                      # NB05, A-04: beta LGD, senior unsecured, independent of the cycle
+  lgd_mean: 0.60
+  lgd_std: 0.25
+
+outputs:
+  quantiles: [0.95, 0.99, 0.995]
+  report_dir: reports

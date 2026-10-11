@@ -1,0 +1,22 @@
+# Stylised corporate bond portfolio (illustrative only, A-09). Not any insurer's actual holdings.
+portfolio:
+  name: corporate_bonds
+  total_exposure_usd: 1.0e9
+  n_issuers: 200
+  rating_mix:                  # share of exposure by S&P letter category
+    AAA: 0.03
+    AA: 0.10
+    A: 0.32
+    BBB: 0.45
+    BB: 0.06
+    B: 0.03
+    CCC/C: 0.01
+  maturity_years:              # average years to maturity; bonds spread from 1 to 2x this
+    AAA: 8
+    AA: 8
+    A: 8
+    BBB: 8
+    BB: 6
+    B: 6
+    CCC/C: 4
+  seed: 7

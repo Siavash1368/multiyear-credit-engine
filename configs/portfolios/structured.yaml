@@ -1,0 +1,18 @@
+# Stylised CLO-type structure (illustrative only, A-08, A-09).
+pool:
+  name: leveraged_loan_pool
+  n_obligors: 200
+  rating_mix: {BB: 0.30, B: 0.65, CCC/C: 0.05}
+  maturity_years: 7          # collateral outlives the 5-year horizon (reinvesting pool)
+  asset_correlation: 0.15
+  lgd_mean: 0.40             # senior secured loans
+  lgd_std: 0.25
+tranches:                    # loss-based attachment / detachment on the pool's 5-year loss rate
+  - {name: equity, attach: 0.00, detach: 0.13, designation: "6"}
+  - {name: BB,     attach: 0.13, detach: 0.17, designation: "3.B"}
+  - {name: BBB,    attach: 0.17, detach: 0.21, designation: "2.B"}
+  - {name: A,      attach: 0.21, detach: 0.25, designation: "1.F"}
+  - {name: AA,     attach: 0.25, detach: 0.30, designation: "1.C"}
+  - {name: AAA,    attach: 0.30, detach: 1.00, designation: "1.A"}
+held_usd: {AAA: 100000000.0, AA: 40000000.0, A: 20000000.0}   # the insurer holds the senior part
+waterfall: loss_allocation   # sequential loss allocation; no interest waterfall yet (L-09)
