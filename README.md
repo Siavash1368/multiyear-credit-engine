@@ -22,25 +22,186 @@ The engine answers four questions for a credit portfolio:
 3. **Who causes the risk?** Each asset's, sector's and asset class's contribution to tail capital; contributions add up to the total.
 4. **Is the spread worth it?** The break-even spread that pays for expected loss plus the cost of capital, against the market spread.
 
-## Model architecture
+## Key terms
 
-```
-Public data ─► Single asset ─► Asset class ─► Dependence ─► Credit cycle ─► Monte Carlo ─► Capital & decisions ─► Validation
-               PD · LGD · EAD  bonds: ratings   one factor,   AR(1) Z_t,     one economy    RBC path · EC ·       closed forms ·
-               Merton DD       mortgages: V,NOI sectors,      scenarios      for all three  contributions ·       backtest · tornado
-                               tranches: [a,d]  t copula                     asset classes  spreads · limits
+| Term | Meaning |
+|---|---|
+| **PD** | Probability of default: chance a borrower defaults within a year |
+| **LGD** | Loss given default: share of the exposure lost if the borrower defaults |
+| **EAD** | Exposure at default: amount owed at the time of default |
+| **EL** | Expected loss: the average loss across all simulated paths |
+| **VaR 99.5%** | Value at risk: the loss exceeded in only 0.5% of paths (1 year in 200) |
+| **ES 99.5%** | Expected shortfall: the average loss in that worst 0.5% of paths |
+| **EC** | Economic capital = ES − EL: the cushion needed above the average loss |
+| **NAIC RBC** | Risk-based capital: the US statutory capital charge for an insurer's assets |
+| **NAIC designation** | Statutory credit grade of a bond (1.A best … 6 in default), mapped from its rating |
+| **CM1–CM7** | NAIC categories for commercial mortgages, set by DSCR and LTV (CM1 best) |
+| **DSCR** | Debt service coverage ratio = property income (NOI) ÷ annual loan payment |
+| **LTV** | Loan to value = loan balance ÷ property value |
+| **NOI** | Net operating income of a property |
+| **OAS** | Option-adjusted spread: the market's extra yield over Treasuries |
+| **DD** | Distance to default: standard deviations between a firm's assets and its debt |
+
+## How the model works
+
+**One simulated economy drives every asset.** Each simulated year draws one credit-cycle shock shared by all borrowers. Each borrower's outcome — keep its rating, be downgraded, or default — depends on that shared shock plus its own luck. Losses are added up over 20,000 simulated five-year paths; that loss distribution then drives capital, contributions and pricing.
+
+```mermaid
+flowchart LR
+    A["1 · Public data<br/>ratings, defaults,<br/>prices, filings"] --> B["2 · Each borrower<br/>rating thresholds,<br/>Merton DD, LGD"]
+    B --> C["3 · Credit cycle<br/>one shared shock<br/>Z_t per year"]
+    C --> D["4 · Asset classes<br/>bonds · mortgages<br/>· tranches"]
+    D --> E["5 · Monte Carlo<br/>20,000 paths<br/>× 5 years"]
+    E --> F["6 · Capital and decisions<br/>RBC · EC · contributions<br/>· break-even spread"]
+    F --> G["7 · Validation<br/>closed forms · backtest<br/>· sensitivity"]
 ```
 
-| Layer | What it does | Key equation |
-|---|---|---|
-| Obligor | Rating → migration thresholds; Merton distance to default from equity | $DD = \frac{\ln(V/D) + (\mu - \frac12\sigma_V^2)T}{\sigma_V\sqrt T}$ |
-| Credit cycle | One persistent systematic factor; sector and asset-class factors share it | $A_{i,t} = \sqrt{\rho} Z_t + \sqrt{1-\rho} \varepsilon_{i,t}$, $Z_t = \phi Z_{t-1} + \sqrt{1-\phi^2} \eta_t$ |
-| Bonds | Year-by-year rating migration and default | $c_{k,j} = \Phi^{-1}\big(\sum_{l \ge j} m_{kl}\big)$ |
-| Commercial mortgages | Merton on the building: value and NOI paths; term (DSCR<1 and LTV>1) and balloon (refinance fails) default | $\text{LGD} = \max(B - (1-\kappa)V, 0)/B$ |
-| Structured | Collateral pool from the same engine; contract slices the pool loss | $\ell_{[a,d]} = \frac{(L-a)^+ - (L-d)^+}{d-a}$ |
-| Capital | NAIC RBC by designation, CM category or tranche rating; ES capital contributions | $RC_i = E[L_i \mid L \ge VaR] - E[L_i]$, $\sum_i RC_i = EC$ |
-| Pricing | Break-even spread | $s^* = EL + k \cdot \text{RBC factor} \cdot \text{CoC}$ |
-| Validation | Closed forms, published curves, out-of-sample backtest, convergence, sensitivity | Vasicek large-pool limit |
+### 1. Borrower — Merton distance to default (listed issuers)
+
+*How close is a firm to default, judged by its stock market value?* (NB02)
+
+Equity is a call option on the firm's assets: shareholders get what is left after the debt is paid.
+
+$$E = V\,N(d_1) - D\,e^{-rT}N(d_2), \qquad \sigma_E\,E = N(d_1)\,\sigma_V\,V$$
+
+We see $E$, $\sigma_E$, $D$ and $r$; we solve these two equations for the two unknowns $V$ and $\sigma_V$.
+
+$$DD = \frac{\ln(V/D) + (\mu - \tfrac12\sigma_V^2)\,T}{\sigma_V\sqrt{T}}, \qquad PD = N(-DD)$$
+
+How many standard deviations the assets sit above the debt after one year, and the chance they fall below it.
+
+| Symbol | Meaning |
+|---|---|
+| $V,\ \sigma_V$ | Market value of the firm's assets and its annual volatility — not observed, solved for |
+| $E,\ \sigma_E$ | Market value of equity (price × shares) and its annual volatility from daily returns |
+| $D$ | Default point = current liabilities + ½ long-term liabilities (KMV rule) |
+| $r,\ \mu$ | 1-year Treasury rate; asset growth rate, set to $r$ |
+| $T$ | Horizon, 1 year |
+| $N(\cdot)$ | Standard normal probability; $d_1, d_2$ are the Black–Scholes terms |
+
+*Example:* Ford — assets USD 217bn, asset volatility 8.4%, default point USD 176bn → DD 2.97, PD 0.15%.
+*Used for* ranking and early warning; PD levels come from rating-agency history (L-11).
+
+### 2. Borrower — rating migration thresholds
+
+*Given a rating today, how does the simulation decide next year's rating?* (NB04)
+
+$$c_{k,j} = \Phi^{-1}\Big(\sum_{l \ge j} m_{k,l}\Big)$$
+
+Cut a standard normal into one bin per rating, sized so each bin's probability equals the historical chance of moving to that rating.
+
+$$\text{next rating} = j \quad \text{when} \quad c_{k,j+1} < A_{i,t} \le c_{k,j}$$
+
+The borrower lands in the bin where its asset return falls.
+
+| Symbol | Meaning |
+|---|---|
+| $k$ | Borrower's rating today |
+| $j,\ l$ | Possible ratings next year, ordered AAA (best) … CCC/C, D (default, worst) |
+| $m_{k,l}$ | Historical one-year probability of moving from $k$ to $l$ (S&P transition matrix) |
+| $\sum_{l \ge j} m_{k,l}$ | Probability of ending at rating $j$ **or worse** |
+| $\Phi^{-1}$ | Inverse standard normal: turns a probability into a cut-off |
+| $c_{k,j}$ | Cut-off: below it, the borrower ends at $j$ or worse |
+| $A_{i,t}$ | Borrower $i$'s asset return in year $t$ (section 3) |
+
+**Which one moves?** The cut-offs are fixed by history. The asset return $A_{i,t}$ moves every year. A bad year pushes $A$ down for everyone at once, so more borrowers drop through the lower cut-offs together.
+*Example:* a BBB issuer's one-year default rate is 0.14%, so its default cut-off is $\Phi^{-1}(0.0014) = -2.99$: it defaults when $A < -2.99$.
+
+### 3. Credit cycle — the shared shock
+
+*Why do defaults cluster?* (NB03)
+
+$$A_{i,t} = \sqrt{\rho}\,Z_t + \sqrt{1-\rho}\,\varepsilon_{i,t}$$
+
+Each borrower's asset return = shared economy part + its own part.
+
+$$Z_t = \phi\,Z_{t-1} + \sqrt{1-\phi^2}\,\eta_t$$
+
+The economy is persistent: a bad year tends to be followed by another bad year.
+
+$$PD(Z_t) = \Phi\!\left(\frac{\Phi^{-1}(PD) - \sqrt{\rho}\,Z_t}{\sqrt{1-\rho}}\right)$$
+
+Default probability in a given year depends on the state of the economy.
+
+| Symbol | Meaning |
+|---|---|
+| $Z_t$ | Credit-cycle shock in year $t$, shared by all borrowers (low = bad year) |
+| $\varepsilon_{i,t}$ | Borrower $i$'s own shock, independent of everyone else |
+| $\rho$ | Asset correlation: how much each borrower depends on the economy (Basel formula by PD) |
+| $\phi$ | Persistence of the cycle (0 = years independent, 0.5 used here) |
+| $\eta_t$ | New economy shock each year |
+| $\beta$ | Share of a sector or asset-class factor that is the global cycle: $Z_k = \sqrt{\beta}\,G + \sqrt{1-\beta}\,H_k$ |
+
+*Example:* BBB, average PD 0.14%, $\rho = 0.20$ → PD 0.04% in an average year ($Z=0$) but 0.95% in a bad year ($Z=-2$), about 24 times higher.
+*Option:* a Student-t copula adds a common "panic" factor that makes joint extreme years more likely.
+
+### 4. Asset classes on the same economy
+
+**Bonds** (NB06) — each year, every bond migrates by section 2; on default, loss = EAD × LGD, with LGD drawn from a beta distribution (mean 60%), optionally worse in bad years (NB05).
+
+**Commercial mortgages — Merton on the building** (NB07)
+
+Property value $V_t$ and income $NOI_t$ follow random paths driven by the commercial real estate cycle (half the global cycle, $\beta = 0.5$).
+
+$$\text{term default: } DSCR_t < 1 \ \text{and}\ LTV_t > 1 \qquad \text{balloon default: refinancing fails at maturity}$$
+
+The borrower cannot pay from income **and** has no equity left to sell; or cannot refinance the final balance.
+
+$$LGD = \frac{\max\big(B - (1-\kappa)V,\ 0\big)}{B}$$
+
+Loss is the part of the loan not covered by selling the building.
+
+| Symbol | Meaning |
+|---|---|
+| $B$ | Loan balance at default |
+| $V$ | Property value at default |
+| $\kappa$ | Selling and foreclosure costs as a share of value |
+
+*Example:* balance 70, value 60, costs 10% → sale proceeds 54, loss 16, LGD 23%.
+
+**Structured tranches** (NB08) — the collateral pool is simulated with the same engine; the contract slices the pool loss.
+
+$$\ell_{[a,d]} = \frac{(L - a)^+ - (L - d)^+}{d - a}$$
+
+A tranche loses nothing until pool losses pass $a$, and is wiped out once they pass $d$.
+
+| Symbol | Meaning |
+|---|---|
+| $L$ | Pool loss rate (share of the pool lost) |
+| $a,\ d$ | Attachment and detachment points: where the tranche starts and stops taking loss |
+| $(x)^+$ | $\max(x, 0)$ |
+
+*Example:* 3–7% tranche, pool loss 6% → (6 − 3)/(7 − 3) = 75% of the tranche lost.
+
+### 5. Monte Carlo
+
+For each of 20,000 paths and each of 5 years: draw $Z_t$ → draw each borrower's $A_{i,t}$ → migrate or default every bond, update every mortgage and the tranche pools → add up the losses. The 20,000 path totals form the loss distribution (EL, VaR, ES).
+
+### 6. Capital and decisions (NB09)
+
+$$RC_i = E[L_i \mid L \ge VaR_{99.5\%}] - E[L_i], \qquad \sum_i RC_i = EC$$
+
+An asset's share of capital = its average loss in the worst 0.5% of paths minus its normal average loss. Shares add up exactly to the total.
+
+$$s^* = EL + k \times \text{RBC factor} \times CoC$$
+
+The spread an asset must earn to pay for its expected loss plus the cost of the capital it ties up.
+
+| Symbol | Meaning |
+|---|---|
+| $L_i,\ L$ | Loss of asset $i$; loss of the whole book |
+| $RC_i$ | Risk contribution of asset $i$ |
+| $s^*$ | Break-even spread per year |
+| $EL$ | Annual expected loss |
+| RBC factor | NAIC capital charge per unit of exposure for that rating |
+| $k$ | Capital held as a multiple of the RBC charge (2) |
+| $CoC$ | Cost of capital: return shareholders require (10%) |
+
+*Example:* BBB → expected loss 16 bp + capital cost (2 × RBC factor × 10%) 33 bp = break-even 49 bp, against a market spread of 102 bp: a 53 bp cushion.
+
+### 7. Validation (NB10)
+
+Each piece is checked against something independent: the Vasicek large-pool formula (a closed form for the default fraction of a large one-factor portfolio), published cumulative default curves, an out-of-sample backtest of 2000–2025 default rates, convergence of the tail estimate, and one-at-a-time sensitivity of ES to every key assumption.
 
 ## Results
 
@@ -133,7 +294,7 @@ Distance to default for 15 listed issuers from equity prices and SEC filings (as
 
 ![Merton DD vs ratings](reports/figures/merton_dd_vs_rating.png)
 
-Merton ranks issuers in line with agency ratings (Spearman 0.90). Raw $N(-DD)$ is far below historical default rates for investment-grade names because the normal tail is too thin, so DD is used for ranking and early warning and mapped to observed default rates for levels (L-11). Ford has the lowest DD among BBB names because its captive finance arm's liabilities sit on the consolidated balance sheet, a known Merton blind spot.
+Merton ranks issuers in line with agency ratings (Spearman 0.90). Raw $N(-DD)$ is far below historical default rates for investment-grade names because the normal tail is too thin, so DD is used for ranking and early warning and mapped to observed default rates for levels (L-11). Ford has the lowest DD among BBB names because its captive finance arm's liabilities sit on the consolidated balance sheet, a known Merton blind spot. The full step-by-step build is in [NB02](notebooks/02_merton_structural_model.ipynb) (Spearman 0.91 there, after correcting a stale SEC share count).
 
 ## Repository structure
 
@@ -155,7 +316,7 @@ multiyear-credit-engine/
 
 ## Notebooks
 
-Each notebook develops one component; once it works, its functions live in `src/creditengine/` with tests and the notebook imports them. The notebooks are the research layer: they currently hold the outline, theory and checklist for each component, and are being filled in component by component on top of the finished engine.
+Each notebook builds one component from scratch, cell by cell, on the same public data, so every step of the engine can be read and rerun. Its functions are then kept in `src/creditengine/` with tests. **NB02 (Merton) is complete**; the others hold the outline, theory and checklist and are being filled in one by one.
 
 | NB | Notebook | Component | Engine module |
 |---|---|---|---|
@@ -233,7 +394,7 @@ python scripts/run_merton.py             # Merton DD for listed issuers (needs p
 | Validation: closed forms, walk-forward backtest, convergence, importance sampling, tornado | `validation.*` | ✅ | `test_validation*.py` |
 | Interest waterfall and coverage tests for structured deals | `assets.structured` | ⬜ Planned (L-09) | |
 | Through-the-cycle matrix calibration; reinvestment; NAIC 6 workout capital | `models.migration`, `simulation` | ⬜ Planned (L-01, L-06, L-07) | |
-| Worked research notebooks NB01–NB12 | `notebooks/` | ◐ Outlines; being filled in | |
+| Worked research notebooks NB01–NB12 | `notebooks/` | ◐ NB02 complete; others being filled in | |
 | ML PD challenger | `models.challenger` | ⬜ Optional | |
 
 Roadmap: [`docs/roadmap.md`](docs/roadmap.md).
