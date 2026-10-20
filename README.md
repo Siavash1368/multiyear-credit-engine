@@ -62,20 +62,20 @@ flowchart LR
 
 Equity is a call option on the firm's assets: shareholders get what is left after the debt is paid.
 
-$$E = V\,N(d_1) - D\,e^{-rT}N(d_2), \qquad \sigma_E\,E = N(d_1)\,\sigma_V\,V$$
+$$E = V N(d_1) - D e^{-rT}N(d_2), \qquad \sigma_E E = N(d_1) \sigma_V V$$
 
 We see $E$, $\sigma_E$, $D$ and $r$; we solve these two equations for the two unknowns $V$ and $\sigma_V$.
 
-$$DD = \frac{\ln(V/D) + (\mu - \tfrac12\sigma_V^2)\,T}{\sigma_V\sqrt{T}}, \qquad PD = N(-DD)$$
+$$DD = \frac{\ln(V/D) + (\mu - \tfrac12\sigma_V^2) T}{\sigma_V\sqrt{T}}, \qquad PD = N(-DD)$$
 
 How many standard deviations the assets sit above the debt after one year, and the chance they fall below it.
 
 | Symbol | Meaning |
 |---|---|
-| $V,\ \sigma_V$ | Market value of the firm's assets and its annual volatility — not observed, solved for |
-| $E,\ \sigma_E$ | Market value of equity (price × shares) and its annual volatility from daily returns |
+| $V, \sigma_V$ | Market value of the firm's assets and its annual volatility — not observed, solved for |
+| $E, \sigma_E$ | Market value of equity (price × shares) and its annual volatility from daily returns |
 | $D$ | Default point = current liabilities + ½ long-term liabilities (KMV rule) |
-| $r,\ \mu$ | 1-year Treasury rate; asset growth rate, set to $r$ |
+| $r, \mu$ | 1-year Treasury rate; asset growth rate, set to $r$ |
 | $T$ | Horizon, 1 year |
 | $N(\cdot)$ | Standard normal probability; $d_1, d_2$ are the Black–Scholes terms |
 
@@ -97,7 +97,7 @@ The borrower lands in the bin where its asset return falls.
 | Symbol | Meaning |
 |---|---|
 | $k$ | Borrower's rating today |
-| $j,\ l$ | Possible ratings next year, ordered AAA (best) … CCC/C, D (default, worst) |
+| $j, l$ | Possible ratings next year, ordered AAA (best) … CCC/C, D (default, worst) |
 | $m_{k,l}$ | Historical one-year probability of moving from $k$ to $l$ (S&P transition matrix) |
 | $\sum_{l \ge j} m_{k,l}$ | Probability of ending at rating $j$ **or worse** |
 | $\Phi^{-1}$ | Inverse standard normal: turns a probability into a cut-off |
@@ -111,15 +111,15 @@ The borrower lands in the bin where its asset return falls.
 
 *Why do defaults cluster?* (NB03)
 
-$$A_{i,t} = \sqrt{\rho}\,Z_t + \sqrt{1-\rho}\,\varepsilon_{i,t}$$
+$$A_{i,t} = \sqrt{\rho} Z_t + \sqrt{1-\rho} \varepsilon_{i,t}$$
 
 Each borrower's asset return = shared economy part + its own part.
 
-$$Z_t = \phi\,Z_{t-1} + \sqrt{1-\phi^2}\,\eta_t$$
+$$Z_t = \phi Z_{t-1} + \sqrt{1-\phi^2} \eta_t$$
 
 The economy is persistent: a bad year tends to be followed by another bad year.
 
-$$PD(Z_t) = \Phi\!\left(\frac{\Phi^{-1}(PD) - \sqrt{\rho}\,Z_t}{\sqrt{1-\rho}}\right)$$
+$$PD(Z_t) = \Phi\left(\frac{\Phi^{-1}(PD) - \sqrt{\rho} Z_t}{\sqrt{1-\rho}}\right)$$
 
 Default probability in a given year depends on the state of the economy.
 
@@ -130,7 +130,7 @@ Default probability in a given year depends on the state of the economy.
 | $\rho$ | Asset correlation: how much each borrower depends on the economy (Basel formula by PD) |
 | $\phi$ | Persistence of the cycle (0 = years independent, 0.5 used here) |
 | $\eta_t$ | New economy shock each year |
-| $\beta$ | Share of a sector or asset-class factor that is the global cycle: $Z_k = \sqrt{\beta}\,G + \sqrt{1-\beta}\,H_k$ |
+| $\beta$ | Share of a sector or asset-class factor that is the global cycle: $Z_k = \sqrt{\beta} G + \sqrt{1-\beta} H_k$ |
 
 *Example:* BBB, average PD 0.14%, $\rho = 0.20$ → PD 0.04% in an average year ($Z=0$) but 0.95% in a bad year ($Z=-2$), about 24 times higher.
 *Option:* a Student-t copula adds a common "panic" factor that makes joint extreme years more likely.
@@ -143,11 +143,11 @@ Default probability in a given year depends on the state of the economy.
 
 Property value $V_t$ and income $NOI_t$ follow random paths driven by the commercial real estate cycle (half the global cycle, $\beta = 0.5$).
 
-$$\text{term default: } DSCR_t < 1 \ \text{and}\ LTV_t > 1 \qquad \text{balloon default: refinancing fails at maturity}$$
+$$\text{term default: } DSCR_t < 1  \text{ and } LTV_t > 1 \qquad \text{balloon default: refinancing fails at maturity}$$
 
 The borrower cannot pay from income **and** has no equity left to sell; or cannot refinance the final balance.
 
-$$LGD = \frac{\max\big(B - (1-\kappa)V,\ 0\big)}{B}$$
+$$LGD = \frac{\max\big(B - (1-\kappa)V, 0\big)}{B}$$
 
 Loss is the part of the loan not covered by selling the building.
 
@@ -168,7 +168,7 @@ A tranche loses nothing until pool losses pass $a$, and is wiped out once they p
 | Symbol | Meaning |
 |---|---|
 | $L$ | Pool loss rate (share of the pool lost) |
-| $a,\ d$ | Attachment and detachment points: where the tranche starts and stops taking loss |
+| $a, d$ | Attachment and detachment points: where the tranche starts and stops taking loss |
 | $(x)^+$ | $\max(x, 0)$ |
 
 *Example:* 3–7% tranche, pool loss 6% → (6 − 3)/(7 − 3) = 75% of the tranche lost.
@@ -179,7 +179,7 @@ For each of 20,000 paths and each of 5 years: draw $Z_t$ → draw each borrower'
 
 ### 6. Capital and decisions (NB09)
 
-$$RC_i = E[L_i \mid L \ge VaR_{99.5\%}] - E[L_i], \qquad \sum_i RC_i = EC$$
+$$RC_i = E[L_i \mid L \ge \text{VaR}_q] - E[L_i], \qquad \sum_i RC_i = EC$$
 
 An asset's share of capital = its average loss in the worst 0.5% of paths minus its normal average loss. Shares add up exactly to the total.
 
@@ -189,8 +189,9 @@ The spread an asset must earn to pay for its expected loss plus the cost of the 
 
 | Symbol | Meaning |
 |---|---|
-| $L_i,\ L$ | Loss of asset $i$; loss of the whole book |
+| $L_i, L$ | Loss of asset $i$; loss of the whole book |
 | $RC_i$ | Risk contribution of asset $i$ |
+| $\text{VaR}_q$ | Loss exceeded in only $1-q$ of paths; $q$ = 99.5% |
 | $s^*$ | Break-even spread per year |
 | $EL$ | Annual expected loss |
 | RBC factor | NAIC capital charge per unit of exposure for that rating |
