@@ -20,5 +20,5 @@ The engine is complete for v0.2; the notebooks hold the outline, theory and chec
 
 ## Conventions
 - Run notebooks in order; each reads only from `data/` and earlier outputs.
-- Outputs are stripped before commit (`nbstripout`).
+- Outputs are kept so results are readable on GitHub.
 - Every notebook ends with a validation checklist and the list of functions moved to the engine.

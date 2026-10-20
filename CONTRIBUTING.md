@@ -18,7 +18,7 @@
 | Types | Type hints on all public functions; `mypy` clean |
 | Docstrings | NumPy style, with units and the equation implemented |
 | Randomness | Every simulation takes an explicit `seed` |
-| Notebooks | Outputs stripped before commit (`nbstripout`) |
+| Notebooks | Outputs kept so results are readable on GitHub |
 | Assumptions | Every hard-coded number has an ID in the assumption register |
 
 ## Checks before a commit
