@@ -1,7 +1,7 @@
 # Notebooks
 
 Research layer. Each notebook develops one model component, then hands its functions to the engine in `src/creditengine/`.
-The engine is complete for v0.2; the notebooks hold the outline, theory and checklist and are being filled in on top of it.
+NB01-NB11 are complete: each rebuilds its component from scratch, cell by cell, reproduces the engine's published numbers and ends with validation checks (72 in total, all pass). NB12 is optional.
 
 | NB | File | Component | Engine module | Assumptions |
 |---|---|---|---|---|
