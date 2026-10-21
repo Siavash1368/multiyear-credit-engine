@@ -7,7 +7,43 @@
 Corporate bonds · Commercial mortgage loans · Structured assets
 Correlated default and rating migration · Credit cycles · Loss distributions · Statutory (NAIC RBC) capital · Capital allocation · Break-even spreads · Validation
 
-> **Status: v0.2.** All three asset classes run on one simulated economy: corporate bonds (rating migration), commercial mortgages (property value and NOI, term and balloon default, CM1–CM5) and structured tranches (pool loss through attachment and detachment). Outputs: loss distribution, statutory capital path, capital contributions by asset class and sector, break-even spreads, limits and stress replays. Validated against closed forms, published default curves and an out-of-sample backtest; 94 tests. See [Status](#status).
+> ### ✅ Update — October 2026: all research notebooks completed, cleaned and pushed for review
+> The eleven component notebooks (NB01–NB11) are now fully worked. Each one rebuilds its engine **from scratch, cell by cell**, explains every equation in plain words, reads its own results, and ends with validation checks — **72 checks, all passing**. Where the engine has published a number in this README, the notebook reproduces it exactly.
+>
+> **Start here:** [one-page executive summary](reports/executive_summary.md) · [the notebooks](#notebooks) · [how to review in 15 minutes](#how-to-review-in-15-minutes)
+
+## The prototype in one minute
+
+**The problem.** A life insurer invests policyholder money in corporate bonds, commercial mortgages and structured credit, and earns a margin over what it credits policyholders. Over a multi-year horizon the risk is not one default — it is many borrowers defaulting or being downgraded **together** in a bad credit cycle, which raises realised losses and statutory capital at the same time.
+
+**The approach.** One simulated economy drives every asset. Each year a shared credit-cycle shock moves every borrower's asset value (Merton approach): bonds migrate between ratings or default, commercial-mortgage properties lose value and income, and the loan pool behind structured tranches takes losses. Twenty thousand five-year paths give one loss distribution for the whole book.
+
+**The answers.** How much could we lose (EL, VaR, ES)? How much statutory and economic capital does it use, and how does that move as ratings migrate? Which assets cause the tail risk? Does each spread pay for its expected loss and capital?
+
+**The evidence.** Closed-form checks, a 25-year out-of-sample backtest, sensitivity to every assumption, convergence tests and historical stress replays — all in [NB10](notebooks/10_model_validation.ipynb).
+
+## How the repository is organised: research layer and production layer
+
+| Layer | Where | Purpose |
+|---|---|---|
+| **Research — notebooks** | [`notebooks/`](notebooks/) | One notebook per engine. Each component is developed, explained and validated step by step, with its own code, so a reviewer can follow exactly what each engine does and why. |
+| **Production — engine** | [`src/creditengine/`](src/creditengine/) | The installable Python package assembled from the notebooks: the same functions, organised into modules, covered by 94 unit and integration tests and run by the scripts in [`scripts/`](scripts/). |
+| **Outputs** | [`reports/`](reports/) | Figures, the [executive summary](reports/executive_summary.md) and [validation summary](reports/validation_summary.md) produced by the scripts and notebooks. |
+| **Documentation** | [`docs/`](docs/) | Model scope, [assumption register](docs/assumption_register.md), [limitations](docs/limitations.md), [validation plan](docs/validation_plan.md), methodology notes. |
+
+**Workflow:** develop and validate a component in its notebook → move its functions into `src/creditengine/` with tests → run the whole book through `scripts/`. Every notebook ends with a table of the functions it hands to the engine and the test that covers each one.
+
+## How to review in 15 minutes
+
+| Step | Open | What you will see |
+|---|---|---|
+| 1 | [Executive summary](reports/executive_summary.md) | The whole-book result and what it means for ALM, the actuary, investment decisions and strategy |
+| 2 | [NB02 · Merton structural model](notebooks/02_merton_structural_model.ipynb) | Asset value and volatility solved from equity (two equations, two unknowns), distance to default, PD |
+| 3 | [NB04 · Rating migration](notebooks/04_rating_migration.ipynb) | How migration thresholds are set, and why the thresholds stay fixed while the asset return moves |
+| 4 | [NB06 · Corporate bond Monte Carlo](notebooks/06_corporate_bond_portfolio_mc.ipynb) | The multi-year simulation, the loss distribution, and which bonds drive the tail |
+| 5 | [NB10 · Model validation](notebooks/10_model_validation.ipynb) | Backtest, tornado of assumptions, convergence, stress, limitations register |
+
+Every notebook opens with **Results at a glance** and a **Key terms and symbols** table, so it can be read without running it.
 
 ---
 
@@ -317,22 +353,22 @@ multiyear-credit-engine/
 
 ## Notebooks
 
-Each notebook builds one component from scratch, cell by cell, on the same public data, so every step of the engine can be read and rerun. Its functions are then kept in `src/creditengine/` with tests. **NB02 (Merton) is complete**; the others hold the outline, theory and checklist and are being filled in one by one.
+Each notebook rebuilds one component **from scratch** — its own data loaders and model functions, no import of the engine — on the same public data, so every step can be read and rerun cell by cell. Each opens with *Results at a glance*, explains every equation in plain words, reads its own results, and ends with validation checks, the functions it hands to `src/creditengine/`, and findings. Where the engine has published a number (this README), the notebook reproduces it exactly and checks that it does.
 
-| NB | Notebook | Component | Engine module |
-|---|---|---|---|
-| 01 | [Data foundation](notebooks/01_data_foundation.ipynb) | Transition matrices, default history, macro series, RBC factors | `data` |
-| 02 | [Merton structural model](notebooks/02_merton_structural_model.ipynb) | Asset value and volatility from equity; distance to default | `models.merton`, `data.edgar` |
-| 03 | [Credit cycle](notebooks/03_credit_cycle.ipynb) | Implied factor; fit of ρ and φ; scenarios | `models.cycle` |
-| 04 | [Rating migration](notebooks/04_rating_migration.ipynb) | Thresholds, matrix powers, generators, cycle-conditional matrices | `models.migration` |
-| 05 | [Recovery and LGD](notebooks/05_recovery_lgd.ipynb) | Beta LGD; recovery linked to the cycle | `models.recovery` |
-| 06 | [Corporate bond portfolio](notebooks/06_corporate_bond_portfolio_mc.ipynb) | Multi-year Monte Carlo; copulas; variance reduction | `simulation`, `assets.corporate` |
-| 07 | [Commercial mortgage loans](notebooks/07_commercial_mortgage_loans.ipynb) | Property value and NOI paths; term and balloon default; CM categories | `assets.cre` |
-| 08 | [Structured assets](notebooks/08_structured_assets.ipynb) | Pool loss to tranche loss; thickness; correlation | `assets.structured` |
-| 09 | [Capital, pricing and limits](notebooks/09_capital_pricing_limits.ipynb) | RBC path; contributions; break-even spread; limits | `capital` |
-| 10 | [Model validation](notebooks/10_model_validation.ipynb) | Closed form, backtests, sensitivity, convergence | `validation` |
-| 11 | [Assumptions, outputs and reporting](notebooks/11_assumptions_outputs_reporting.ipynb) | Assumption-to-output attribution; executive summary | `reporting` |
-| 12 | [ML challenger (optional)](notebooks/12_ml_challenger_optional.ipynb) | Machine-learning PD challenger vs Merton | `models.challenger` |
+| NB | Notebook | What it answers | Key result | Checks |
+|---|---|---|---|---|
+| 01 | [Data foundation](notebooks/01_data_foundation.ipynb) | Are the public tables clean enough to drive the engine? | Defaults peak in every recession; NAIC factors match the Academy letter | 6/6 |
+| 02 | [Merton structural model](notebooks/02_merton_structural_model.ipynb) | What PD does the stock market imply for a firm? | Ford DD 2.97, PD 0.15%; Spearman with ratings 0.91 | 4/4 |
+| 03 | [Credit cycle](notebooks/03_credit_cycle.ipynb) | How strongly and how long do defaults move together? | Single-B ρ 0.13, φ 0.54; implied cycle vs bank charge-offs −0.61 | 7/7 |
+| 04 | [Rating migration](notebooks/04_rating_migration.ipynb) | How do thresholds move bonds between ratings? | BBB defaults below −2.99; time-varying chain fits published curves | 6/6 |
+| 05 | [Recovery and LGD](notebooks/05_recovery_lgd.ipynb) | How much is lost per default, and in bad years? | Cycle-linked LGD (b = 0.25) raises ES 34% with the long-run mean unchanged | 7/7 |
+| 06 | [Corporate bond portfolio](notebooks/06_corporate_bond_portfolio_mc.ipynb) | What can a USD 1bn bond book lose in five years? | EL 13.6m, ES 107.0m; BBB is 53% of tail capital | 6/6 |
+| 07 | [Commercial mortgage loans](notebooks/07_commercial_mortgage_loans.ipynb) | How does a CRE loan book lose money? | 95% of defaults at the balloon; NAIC CM grid checked line by line | 6/6 |
+| 08 | [Structured assets](notebooks/08_structured_assets.ipynb) | How do tranches slice a pool's loss? | A tranche: 0.6% EL but 88% loss in the worst 0.5% of paths | 8/8 |
+| 09 | [Capital, pricing and limits](notebooks/09_capital_pricing_limits.ipynb) | Does each spread pay for its loss and capital? | BBB widest cushion (+53 bp), single B does not pay; statutory vs economic capital disagree | 7/7 |
+| 10 | [Model validation](notebooks/10_model_validation.ipynb) | Does the model do what it claims? | Speculative grade 0 of 26 years outside the out-of-sample band; model form drives the tail | 9/9 |
+| 11 | [Assumptions, outputs and reporting](notebooks/11_assumptions_outputs_reporting.ipynb) | What does the whole book need, and what should each audience do? | Structured: 16% of exposure, 25% of tail capital; [executive summary](reports/executive_summary.md) | 6/6 |
+| 12 | [ML challenger (optional)](notebooks/12_ml_challenger_optional.ipynb) | Can a machine-learning PD challenge Merton? | Planned | — |
 
 ## Data
 
@@ -395,7 +431,8 @@ python scripts/run_merton.py             # Merton DD for listed issuers (needs p
 | Validation: closed forms, walk-forward backtest, convergence, importance sampling, tornado | `validation.*` | ✅ | `test_validation*.py` |
 | Interest waterfall and coverage tests for structured deals | `assets.structured` | ⬜ Planned (L-09) | |
 | Through-the-cycle matrix calibration; reinvestment; NAIC 6 workout capital | `models.migration`, `simulation` | ⬜ Planned (L-01, L-06, L-07) | |
-| Worked research notebooks NB01–NB12 | `notebooks/` | ◐ NB02 complete; others being filled in | |
+| Worked research notebooks NB01–NB11 (built from scratch; reproduce the engine) | `notebooks/` | ✅ | validation checks inside each notebook (72 in total, all pass) |
+| ML challenger notebook NB12 | `notebooks/` | ⬜ Optional | |
 | ML PD challenger | `models.challenger` | ⬜ Optional | |
 
 Roadmap: [`docs/roadmap.md`](docs/roadmap.md).
